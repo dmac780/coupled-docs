@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Patterns for styles, scripts, hydration, and composition in Coupled.">
+  <title>Patterns - Coupled Docs</title>
+  <style>.alert-gutter { --alert-orange: #ff9500; --alert-border: rgba(255, 149, 0, 0.4); --alert-bg: rgba(255, 149, 0, 0.08); margin: 0 0 1.5rem; padding: 1rem 1.25rem; background: var(--alert-bg); border: 1px solid var(--alert-border); border-radius: 6px; display: flex; align-items: flex-start; gap: 0.75rem; min-width: 0; box-sizing: border-box; } .alert-icon { font-size: 1.25rem; line-height: 1.4; flex-shrink: 0; } .alert-message { font-size: 0.9375rem; line-height: 1.5; color: #e8e8e8; margin: 0; font-family: system-ui, -apple-system, sans-serif; }</style><style>.backtotop { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 90; width: 2.5rem; height: 2.5rem; padding: 0; border: 1px solid rgba(255,255,255,0.12); border-radius: 50%; background: rgba(0,0,0,0.85); color: #00ff41; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.2s ease, visibility 0.2s ease, border-color 0.2s ease, background 0.2s ease; } .backtotop.visible { opacity: 1; visibility: visible; } .backtotop:hover { border-color: #00ff41; background: rgba(0, 255, 65, 0.1); } .backtotop svg { width: 1rem; height: 1rem; } @media (max-width: 380px) { .backtotop { bottom: 1rem; right: 1rem; width: 2.25rem; height: 2.25rem; } }</style><style>.code-block-wrap { max-width: 100%; min-width: 0; overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; background: #0c0c0c; margin: 0.5rem 0 1rem; scrollbar-width: thin; scrollbar-color: rgba(0, 255, 65, 0.85) transparent; } .code-block-wrap::-webkit-scrollbar { height: 6px; } .code-block-wrap::-webkit-scrollbar-track { background: transparent; } .code-block-wrap::-webkit-scrollbar-thumb { background: rgba(0, 255, 65, 0.85); border-radius: 3px; } .code-block-wrap::-webkit-scrollbar-thumb:hover { background: rgba(0, 255, 65, 1); } .code-block { display: block; margin: 0; padding: 1rem 1.25rem; background: #0c0c0c; color: #e8e8e8; font-family: 'SF Mono', 'Consolas', 'Monaco', monospace; font-size: 0.75rem; line-height: 1.5; white-space: pre; min-width: min-content; border: none; border-radius: 4px; } .code-block .code-white { color: #e8e8e8; } .code-block .code-blue { color: #7dd3fc; } .code-block .code-green { color: #00ff41; } .code-block .code-red { color: #f87171; } .code-block-label { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #888; margin-bottom: 0.35rem; font-family: system-ui, -apple-system, sans-serif; } .code-inline { background: #0c0c0c; padding: 0.2rem 0.5rem; border: 1px solid rgba(255,255,255,0.08); border-radius: 3px; font-family: 'SF Mono', 'Consolas', monospace; font-size: 0.8125rem; color: #00ff41; } .code-inline .code-white { color: #e8e8e8; } .code-inline .code-green { color: #00ff41; } @media (max-width: 768px) { .code-block-wrap { margin: 0.35rem 0 0.75rem; } .code-block { padding: 0.75rem 1rem; font-size: 0.6875rem; } } @media (max-width: 360px) { .code-block-wrap { margin: 0.25rem 0 0.5rem; } .code-block { padding: 0.5rem 0.75rem; font-size: 0.625rem; } }</style><style>.docs-page { --line: 1px solid rgba(255,255,255,0.08); --line-accent: 1px solid rgba(0, 255, 65, 0.25); --green: #00ff41; --text: #e8e8e8; --text-muted: #888; --bg-card: rgba(255,255,255,0.02); --bg-code: #0c0c0c; max-width: 1100px; min-width: 0; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; font-family: system-ui, -apple-system, sans-serif; box-sizing: border-box; } .docs-grid { display: grid; grid-template-columns: 200px 1fr; gap: 0; border: var(--line); border-radius: 6px; overflow: hidden; margin-top: 0; min-width: 0; } .docs-content { background: var(--bg-card); padding: 2rem 2.25rem; min-width: 0; overflow-wrap: break-word; word-wrap: break-word; } .docs-title { font-size: 1.5rem; font-weight: 700; letter-spacing: 0.08em; color: var(--text); margin: 0 0 0.35rem; } .docs-title::after { content: ''; display: block; width: 2rem; height: 2px; background: var(--green); margin-top: 0.6rem; opacity: 0.9; } .docs-subtitle { font-size: 0.9375rem; color: var(--text-muted); margin: 0 0 2rem; padding-bottom: 2rem; border-bottom: var(--line); line-height: 1.6; } .docs-section { margin: 2rem 0; } .docs-section h2 { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin: 0 0 1rem; } .docs-section h3 { font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text); margin: 1.5rem 0 0.5rem; } .docs-section p { margin: 0.75rem 0; line-height: 1.65; font-size: 0.9375rem; color: var(--text-muted); } .docs-section a { color: var(--text-muted); border-bottom: 1px solid rgba(255,255,255,0.2); text-decoration: none; } .docs-section a:hover { color: var(--text); border-bottom-color: var(--green); } .docs-section .code-inline { color: var(--green); } .docs-section ul, .docs-section ol { margin: 0.75rem 0 0.75rem 1.5rem; } .docs-section li { margin: 0.5rem 0; font-size: 0.9375rem; color: var(--text-muted); line-height: 1.5; } @media (max-width: 768px) { .docs-page { padding: 1rem 0.75rem 2rem; } .docs-content { padding: 1.25rem 1rem; } .docs-grid { grid-template-columns: 1fr; } } @media (max-width: 380px) { .docs-page { padding: 0.75rem 0.5rem 1.5rem; } .docs-content { padding: 1rem 0.75rem; } }</style><style>.docs-sidebar { position: sticky; top: 70px; height: fit-content; background: rgba(255,255,255,0.02); border-right: 1px solid rgba(255,255,255,0.08); } .docs-nav { list-style: none; } .docs-nav-item { border-bottom: 1px solid rgba(255,255,255,0.08); } .docs-nav-item:last-child { border-bottom: none; } .docs-nav-link { display: block; padding: 0.75rem 1rem; font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.04em; color: #888; text-decoration: none; transition: background 0.2s, color 0.2s; } .docs-nav-link:hover, .docs-nav-link.active { background: rgba(255,255,255,0.04); color: #e8e8e8; } @media (max-width: 768px) { .docs-sidebar { position: static; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); } }</style><style>.footer { background: #000; border-top: 1px solid rgba(255,255,255,0.08); padding: 1.5rem 1.5rem; margin-top: 4rem; } .footer-inner { max-width: 1100px; min-width: 0; margin: 0 auto; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 1.5rem 2.5rem; box-sizing: border-box; } .footer-text { font-size: 0.8125rem; color: #888; letter-spacing: 0.02em; font-family: system-ui, -apple-system, sans-serif; } .footer-links { display: flex; gap: 1.75rem; list-style: none; } .footer-link { color: #888; text-decoration: none; font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.04em; border-bottom: 1px solid transparent; transition: border-color 0.2s, color 0.2s; font-family: system-ui, -apple-system, sans-serif; } .footer-link:hover { color: #e8e8e8; border-bottom-color: rgba(255,255,255,0.15); }</style><style>html, body { max-width: 100%; } body { background: #000; color: #888; font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; } main.main-content { min-width: 0; max-width: 100%; overflow-x: hidden; } .nav { background: #000; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 0.65rem 1.5rem; position: sticky; top: 0; z-index: 100; transform: translateY(0); transition: transform 0.25s ease-out, padding 0.2s ease-out; } .nav.nav-slim { padding: 0.32rem 1.5rem; } .nav.nav-slim .nav-brand { font-size: 0.7rem; } .nav-brand-slim { display: none; } .nav-brand-slim .nav-brand-prefix, .nav-brand-slim .nav-brand-suffix { color: #e8e8e8; } .nav-brand-slim .nav-brand-c { color: #00ff41; } .nav.nav-slim .nav-brand-slim { display: inline; } .nav-brand-full-wrap { display: inline-block; overflow: hidden; vertical-align: bottom; white-space: nowrap; width: 0; max-width: 0; transition: none; } .nav-brand-full { display: inline; } .nav-brand-full span { opacity: 1; transform: none; transition: none; } .nav:not(.nav-slim) .nav-brand-full span:nth-child(n) { opacity: 1; transform: none; transition-delay: 0s; } .nav:not(.nav-slim) .nav-brand-full-wrap { width: 9.4ch; max-width: 9.4ch; } .nav-brand-initial.nav:not(.nav-slim) .nav-brand-full-wrap { width: 0; max-width: 0; display: inline-block; } .nav.nav-slim .nav-brand-full-wrap { width: 0; max-width: 0; display: none; } .nav.nav-brand-reveal .nav-brand-full-wrap { display: inline-block; animation: brand-reveal 0.35s steps(7, end) forwards; } .nav.nav-brand-hide .nav-brand-full-wrap { display: inline-block !important; animation: brand-hide 0.35s steps(7, end) forwards; } .nav.nav-brand-hide .nav-brand-slim { display: none !important; } .nav.nav-brand-reveal .nav-brand-slim { display: none !important; } @keyframes brand-reveal { 0% { width: 0; max-width: 0; } 14.28% { width: 1.34ch; max-width: 1.34ch; } 28.57% { width: 2.68ch; max-width: 2.68ch; } 42.85% { width: 4.02ch; max-width: 4.02ch; } 57.14% { width: 5.36ch; max-width: 5.36ch; } 71.42% { width: 6.7ch; max-width: 6.7ch; } 85.71% { width: 8.04ch; max-width: 8.04ch; } 100% { width: 9.4ch; max-width: 9.4ch; } } @keyframes brand-hide { 0% { width: 9.4ch; max-width: 9.4ch; } 14.28% { width: 8.04ch; max-width: 8.04ch; } 28.57% { width: 6.7ch; max-width: 6.7ch; } 42.85% { width: 5.36ch; max-width: 5.36ch; } 57.14% { width: 4.02ch; max-width: 4.02ch; } 71.42% { width: 2.68ch; max-width: 2.68ch; } 85.71% { width: 1.34ch; max-width: 1.34ch; } 100% { width: 0; max-width: 0; } } .nav.nav-slim .nav-brand-full-wrap { display: none; } .nav.nav-hidden { transform: translateY(-100%); } .nav-inner { max-width: 1100px; min-width: 0; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; } .nav-brand { font-size: 0.8125rem; font-weight: 600; color: #00ff41; text-decoration: none; letter-spacing: 0.12em; text-transform: uppercase; font-family: system-ui, -apple-system, sans-serif; transition: font-size 0.2s ease-out; } .nav-toggle { display: none; background: transparent; border: 1px solid rgba(255,255,255,0.08); color: #888; padding: 0.5rem 0.75rem; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; border-radius: 4px; font-family: system-ui, -apple-system, sans-serif; } .nav-toggle:hover { border-color: rgba(255,255,255,0.15); color: #e8e8e8; } .nav-links { display: flex; gap: 1.75rem; list-style: none; } .nav-link { color: #888; text-decoration: none; font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.04em; border-bottom: 1px solid transparent; transition: border-color 0.2s, color 0.2s; font-family: system-ui, -apple-system, sans-serif; } .nav-link:hover { color: #e8e8e8; border-bottom-color: rgba(255,255,255,0.15); } @media (max-width: 380px) { .nav { padding: 0.5rem 0.75rem; } } @media (max-width: 768px) { .nav-toggle { display: block; } .nav-links { position: absolute; top: 100%; left: 0; right: 0; background: #000; border-bottom: 1px solid rgba(255,255,255,0.08); flex-direction: column; padding: 1rem; gap: 0; max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.25s ease, opacity 0.2s; } .nav-links.nav-open { max-height: 280px; opacity: 1; } .nav-links li { padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); } .nav-links li:last-child { border-bottom: none; } }</style><style>.valueprops { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; overflow: hidden; } .valueprop { padding: 1.5rem 1.25rem; background: rgba(255,255,255,0.02); border-right: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease; } .valueprop:hover { background: rgba(0, 255, 65, 0.08); border-color: rgba(0, 255, 65, 0.35); } .valueprop:hover .valueprop-title, .valueprop:hover .valueprop-desc { color: #00ff41; } .valueprop:hover .valueprop-desc code { border-color: #00ff41; color: #e8e8e8; } .valueprop:nth-child(3n) { border-right: none; } .valueprop:nth-last-child(-n+3) { border-bottom: none; } .valueprop-title { font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #e8e8e8; margin: 0 0 0.5rem; font-family: system-ui, -apple-system, sans-serif; } .valueprop-desc { font-size: 0.875rem; color: #888; line-height: 1.5; margin: 0; font-family: system-ui, -apple-system, sans-serif; } .valueprop-desc code { background: rgba(0,0,0,0.3); padding: 0.15rem 0.4rem; border: 1px solid rgba(0, 255, 65, 0.25); border-radius: 3px; font-size: 0.75rem; color: #00ff41; font-family: 'SF Mono', 'Consolas', monospace; } @media (max-width: 900px) { .valueprops { grid-template-columns: 1fr; } .valueprop { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); } .valueprop:nth-child(3n) { border-right: none; } .valueprop:nth-last-child(-n+3) { border-bottom: 1px solid rgba(255,255,255,0.08); } .valueprop:last-child { border-bottom: none; } }</style>
+</head>
+<body>
+  <nav class="nav nav-brand-initial" id="site-nav">
+  <div class="nav-inner">
+    <a href="/coupled/" class="nav-brand">
+      <span class="nav-brand-slim"><span class="nav-brand-prefix">index.</span><span class="nav-brand-c">C</span><span class="nav-brand-suffix">.html</span></span>
+      <span class="nav-brand-full-wrap">
+        <span class="nav-brand-full"><span>C</span><span>o</span><span>u</span><span>p</span><span>l</span><span>e</span><span>d</span></span>
+      </span>
+    </a>
+    <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">Menu</button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="/coupled/" class="nav-link">Home</a></li>
+      <li><a href="/coupled/docs" class="nav-link">Docs</a></li>
+      <li><a href="/coupled/examples" class="nav-link">Examples</a></li>
+    </ul>
+  </div>
+</nav>
+  <main class="main-content">
+    
+
+<div class="docs-page">
+  <div class="docs-grid">
+    <aside class="docs-sidebar">
+  <nav class="docs-nav">
+    <div class="docs-nav-item">
+      <a href="/coupled/docs" class="docs-nav-link">Overview</a>
+    </div>
+    <div class="docs-nav-item">
+      <a href="/coupled/docs/file-types.html" class="docs-nav-link">File types</a>
+    </div>
+    <div class="docs-nav-item">
+      <a href="/coupled/docs/concepts.html" class="docs-nav-link">Concepts</a>
+    </div>
+    <div class="docs-nav-item">
+      <a href="/coupled/docs/templates.html" class="docs-nav-link">Templates</a>
+    </div>
+    <div class="docs-nav-item">
+      <a href="/coupled/docs/patterns.html" class="docs-nav-link active">Patterns</a>
+    </div>
+    <div class="docs-nav-item">
+      <a href="/coupled/docs/build.html" class="docs-nav-link">Build &amp; run</a>
+    </div>
+    <div class="docs-nav-item">
+      <a href="/coupled/examples" class="docs-nav-link">Examples</a>
+    </div>
+  </nav>
+</aside>
+    <article class="docs-content">
+      <h1 class="docs-title">Patterns</h1>
+      <p class="docs-subtitle">Shared styles, layout components, and how to keep CSS and structure DRY across pages.</p>
+
+      <section class="docs-section">
+        <h2>Shared styles (styles.c.html)</h2>
+        <p>You can put <strong>common CSS in a component</strong> and mount it in a template so every page that uses that template gets it. Create a <code class="code-inline">.c.html</code> file that only has a <code class="code-inline">&lt;style&gt;</code> block with <code class="code-inline">mount="head"</code> and <code class="code-inline">serve="inline"</code>. Set <code class="code-inline">TYPE: component</code> and <code class="code-inline">MOUNT: styles</code> (or any slot name). Then in that template put <code class="code-inline">&lcub;&lcub;MOUNT.styles&rcub;&rcub;</code> inside <code class="code-inline">&lt;head&gt;</code> next to <code class="code-inline">&lcub;&lcub;MOUNT.head&rcub;&rcub;</code>. The build merges that component’s styles into the head for every page using that template.</p>
+        <div class="code-block-label">e.g. src/_components/styles.c.html</div>
+        <div class="code-block-wrap"><pre class="code-block">---
+TYPE: component
+MOUNT: styles
+---
+&lt;style mount="head" serve="inline"&gt;
+  :root { --color-text: #e8e8e8; --color-muted: #888; }
+  body { font-family: system-ui; background: #000; color: var(--color-text); }
+  /* shared layout, code blocks, etc. */
+&lt;/style&gt;</pre></div>
+        <div class="code-block-label">In your .t.html template</div>
+        <div class="code-block-wrap"><pre class="code-block">&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;<span class="code-white">&lcub;&lcub;title&rcub;&rcub;</span>&lt;/title&gt;
+  <span class="code-green">&lcub;&lcub;MOUNT.styles&rcub;&rcub;</span>
+  <span class="code-green">&lcub;&lcub;MOUNT.head&rcub;&rcub;</span>
+&lt;/head&gt;</pre></div>
+        <p>Order matters: <code class="code-inline">MOUNT.styles</code> before <code class="code-inline">MOUNT.head</code> so page-specific styles can override. Duplicate style blocks are deduped by the build, but defining shared variables and base rules in one place keeps things consistent.</p>
+      </section>
+
+      <section class="docs-section">
+        <h2>Layout in a template</h2>
+        <p>Put nav, footer, and layout structure in a template so every page that uses that template gets the same shell. Use <code class="code-inline">&lcub;&lcub;MOUNT.nav&rcub;&rcub;</code>, <code class="code-inline">&lcub;&lcub;MOUNT.footer&rcub;&rcub;</code>, and wrap <code class="code-inline">&lcub;&lcub;MOUNT.content&rcub;&rcub;</code> in a <code class="code-inline">&lt;main&gt;</code> or grid. Each page picks a template via <code class="code-inline">TEMPLATE:</code> (e.g. all docs pages use the docs template; other pages use another). The template supplies the layout; the page supplies the content.</p>
+        <div class="code-block-label">Template body</div>
+        <div class="code-block-wrap"><pre class="code-block"><span class="code-green">&lcub;&lcub;MOUNT.nav&rcub;&rcub;</span>
+
+&lt;main class="main-content"&gt;
+  <span class="code-green">&lcub;&lcub;MOUNT.content&rcub;&rcub;</span>
+&lt;/main&gt;
+
+<span class="code-green">&lcub;&lcub;MOUNT.footer&rcub;&rcub;</span>
+<span class="code-green">&lcub;&lcub;MOUNT.body&rcub;&rcub;</span></pre></div>
+      </section>
+
+      <section class="docs-section">
+        <h2>Reusable code block / UI components</h2>
+        <p>Components that only inject CSS (no body, or a minimal wrapper) are useful for shared UI: e.g. a codeblock component with <code class="code-inline">mount="head"</code> for <code class="code-inline">.code-block</code> styles. Every page that uses code blocks includes <code class="code-inline">&lcub;&lcub;MOUNT.codeblock&rcub;&rcub;</code> once so the styles are in head; then use the same class names in your HTML. Same idea for a shared button, card, or form style component.</p>
+        <div class="code-block-label">Page: include once, then use class</div>
+        <div class="code-block-wrap"><pre class="code-block"><span class="code-green">&lcub;&lcub;MOUNT.codeblock&rcub;&rcub;</span>
+&lt;div class="code-block-wrap"&gt;&lt;pre class="code-block"&gt;const x = 1;&lt;/pre&gt;&lt;/div&gt;</pre></div>
+      </section>
+
+      <section class="docs-section">
+        <h2>Docs-style multi-page layout</h2>
+        <p>For a docs site with a sidebar, use a layout component (e.g. <code class="code-inline">docslayout</code>) that only has CSS for the grid and sidebar. A nav component (e.g. <code class="code-inline">docsnav</code>) receives a variable like <code class="code-inline">activeFileTypes</code> so the current page can set the active link. Each doc page includes <code class="code-inline">&lcub;&lcub;MOUNT.docslayout&rcub;&rcub;</code>, <code class="code-inline">&lcub;&lcub;MOUNT.docsnav:activeFileTypes&rcub;&rcub;</code>, and the article content. See this site’s <code class="code-inline">src/docs/</code> and <code class="code-inline">src/_components/</code> for a full example.</p>
+      </section>
+    </article>
+  </div>
+</div>
+  </main>
+  <footer class="footer">
+  <div class="footer-inner">
+    <p class="footer-text">Built with Coupled</p>
+    <ul class="footer-links">
+      <li><a href="https://github.com/dmac780/coupled" class="footer-link">GitHub</a></li>
+      <li><a href="/coupled/docs" class="footer-link">Documentation</a></li>
+    </ul>
+  </div>
+</footer>
+  <button type="button" class="backtotop" id="backtotop-btn" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+  <script>(function() { var btn = document.getElementById('backtotop-btn'); if (!btn) return; var showAfter = 400; function update() { if (window.scrollY > showAfter) btn.classList.add('visible'); else btn.classList.remove('visible'); } window.addEventListener('scroll', update, { passive: true }); update(); btn.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth'}); }); })();</script><script>(function() { var toggle = document.getElementById('nav-toggle'); var links = document.getElementById('nav-links'); if (toggle && links) { toggle.addEventListener('click', function() { links.classList.toggle('nav-open'); }); } var nav = document.getElementById('site-nav'); if (nav) { var lastScrollY = window.scrollY || 0; var raf = null; var state = 'full'; var TOP_ZONE = 16; var SLIM_ZONE = 48; var hasPlayedInitialReveal = false; function runRevealAndListen() { var wrap = nav.querySelector('.nav-brand-full-wrap'); if (!wrap) return; var onAnimEnd = function(e) { if (e.animationName !== 'brand-reveal'&& e.animationName !== 'brand-hide') return; wrap.removeEventListener('animationend', onAnimEnd); nav.classList.remove('nav-brand-reveal', 'nav-brand-hide'); }; wrap.addEventListener('animationend', onAnimEnd); } function playInitialReveal() { if (hasPlayedInitialReveal || !nav.classList.contains('nav-brand-initial')) return; hasPlayedInitialReveal = true; nav.classList.remove('nav-brand-initial'); nav.classList.add('nav-brand-reveal'); runRevealAndListen(); } function updateNav() { var y = window.scrollY || 0; var next = state; if (y <= TOP_ZONE) { next = 'full'; } else if (y > lastScrollY) { next = 'hidden'; } else { next = y >= SLIM_ZONE ? 'slim': 'full'; } lastScrollY = y; if (next === state) return; var prev = state; state = next; nav.classList.toggle('nav-hidden', state === 'hidden'); nav.classList.remove('nav-brand-reveal', 'nav-brand-hide'); if (state === 'full') { nav.classList.remove('nav-slim'); if (prev === 'slim') { nav.classList.add('nav-brand-reveal'); runRevealAndListen(); } } else if (state === 'slim') { nav.classList.add('nav-slim'); if (prev === 'full') nav.classList.add('nav-brand-hide'); runRevealAndListen(); } } function onScroll() { if (raf) return; raf = requestAnimationFrame(function() { raf = null; updateNav(); }); } window.addEventListener('scroll', onScroll, { passive: true }); updateNav(); if (typeof requestIdleCallback !== 'undefined') { requestIdleCallback(playInitialReveal, { timeout: 180 }); } else { setTimeout(playInitialReveal, 0); } } })();</script>
+</body>
+</html>
