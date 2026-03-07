@@ -88,6 +88,47 @@ MOUNT: hero
   </div>
 
   <div class="example-card">
+    <h2 class="example-title">Schema (JSON-LD)</h2>
+    <p class="example-desc">Emit <code class="code-inline">&lt;script type="application/ld+json"&gt;</code> from a component. The template mounts the schema with <strong>whatever variables you need</strong>—<code class="code-inline"><span class="code-green">&lcub;&lcub;MOUNT.schema:var1,var2,...&rcub;&rcub;</span></code>—and the component uses <code class="code-inline"><span class="code-green">@@var1</span></code>, <code class="code-inline"><span class="code-green">@@var2</span></code>, etc. in the JSON. Below is one example: <strong>Article</strong>. You could have other components or the same component with different <code class="code-inline">@type</code> (e.g. WebPage, Organization, Product) and pass whatever fields that type needs.</p>
+    <div class="code-block-label">Component (schema.c.html) — example: Article</div>
+    <div class="code-block-wrap"><pre class="code-block">---
+TYPE: component
+MOUNT: schema
+---
+&lt;script type="application/ld+json" mount="schema" serve="inline"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": <span class="code-green">"@@name"</span>,
+  "description": <span class="code-green">"@@description"</span>,
+  "url": <span class="code-green">"@@url"</span>,
+  "datePublished": <span class="code-green">"@@datePublished"</span>,
+  "dateModified": <span class="code-green">"@@dateModified"</span>,
+  "author": {
+    "@type": "Person",
+    "name": <span class="code-green">"@@author"</span>
+  }
+}
+&lt;/script&gt;</pre></div>
+    <div class="code-block-label">Page frontmatter (e.g. index.c.html)</div>
+    <div class="code-block-wrap"><pre class="code-block">---
+title: Page Title
+name: Page title
+description: My Description
+url: https://example.com/
+datePublished: 2026-03-07
+dateModified: 2026-03-07
+author: Author Name
+TYPE: page
+MOUNT: content
+TEMPLATE: index.t.html
+---</pre></div>
+    <div class="code-block-label">Template — mount with whatever vars this schema type needs</div>
+    <div class="code-block-wrap"><pre class="code-block">  <span class="code-green">&lcub;&lcub;MOUNT.schema:name,description,url,datePublished,dateModified,author&rcub;&rcub;</span></pre></div>
+    <p class="example-desc" style="margin-top:0.5rem;">For this Article example we pass those six. For WebPage you might pass <code class="code-inline">name,description,url</code>; for another type, whatever that type needs. Page frontmatter supplies the values; the component’s JSON uses <code class="code-inline"><span class="code-green">@@name</span></code>, <code class="code-inline"><span class="code-green">@@description</span></code>, etc.</p>
+  </div>
+
+  <div class="example-card">
     <h2 class="example-title">Conditionals</h2>
     <p class="example-desc">Use <code class="code-inline"><span class="code-green">&lcub;&lcub;if variable&rcub;&rcub;</span></code> … <code class="code-inline"><span class="code-green">&lcub;&lcub;else&rcub;&rcub;</span></code> … <code class="code-inline"><span class="code-green">&lcub;&lcub;/if&rcub;&rcub;</span></code> for optional blocks. Nested conditionals work (evaluate inside-out). The variable can come from frontmatter or from a mount argument.</p>
     <div class="code-block-wrap"><pre class="code-block"><span class="code-green">&lcub;&lcub;if showSidebar&rcub;&rcub;</span>
